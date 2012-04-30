@@ -43,7 +43,7 @@ if [ "$MAKE_IS_DONE" == "yes" ]; then
 < # unixsocket /tmp/redis.sock
 < # unixsocketperm 755
 ---
-> unixsocket ${OPENSHIFT_GEAR_DIR}tmp/redis.sock
+> unixsocket ${OPENSHIFT_RUN_DIR}redis.sock
 > unixsocketperm 755
 107c106
 < dir ./
