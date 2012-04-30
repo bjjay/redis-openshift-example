@@ -9,7 +9,7 @@
 REDIS_VERSION=2.4.11
 MAKE_IS_DONE="no"
 
-if [ ! -d ${OPENSHIFT_DATA_DIR}/redis ]; then
+if [ ! -d ${OPENSHIFT_RUNTIME_DIR}/redis ]; then
   cd ${OPENSHIFT_TMP_DIR}
   if [ ! -d redis-${REDIS_VERSION} ]; then
     curl -L -o redis-${REDIS_VERSION}.tar.gz http://redis.googlecode.com/files/redis-${REDIS_VERSION}.tar.gz
@@ -17,9 +17,9 @@ if [ ! -d ${OPENSHIFT_DATA_DIR}/redis ]; then
   fi
   cd redis-${REDIS_VERSION}
   echo "Start compiling Redis ${REDIS_VERSION} on Openshift (i'll take a while)"
-  PREFIX=${OPENSHIFT_DATA_DIR}redis make -e install
+  PREFIX=${OPENSHIFT_RUNTIME_DIR}redis make -e install
 
-  mkdir ${OPENSHIFT_DATA_DIR}/redis/data
+  mkdir ${OPENSHIFT_DATA_DIR}/redis
   MAKE_IS_DONE="yes"
 fi
 
@@ -48,12 +48,12 @@ if [ "$MAKE_IS_DONE" == "yes" ]; then
 107c106
 < dir ./
 ---
-> dir ${OPENSHIFT_DATA_DIR}redis/data
+> dir ${OPENSHIFT_DATA_DIR}redis
 
 EOF
-  patch ${OPENSHIFT_TMP_DIR}redis-${REDIS_VERSION}/redis.conf ${OPENSHIFT_TMP_DIR}redis.conf.patch -o ${OPENSHIFT_DATA_DIR}redis/bin/redis.conf
+  patch ${OPENSHIFT_TMP_DIR}redis-${REDIS_VERSION}/redis.conf ${OPENSHIFT_TMP_DIR}redis.conf.patch -o ${OPENSHIFT_RUNTIME_DIR}redis/bin/redis.conf
 fi
 
-cd ${OPENSHIFT_DATA_DIR}redis
-[ -f ${OPENSHIFT_RUN_DIR}redis.pid ] || ${OPENSHIFT_DATA_DIR}redis/bin/redis-server ${OPENSHIFT_DATA_DIR}redis/bin/redis.conf
+cd ${OPENSHIFT_RUNTIME_DIR}redis
+[ -f ${OPENSHIFT_RUN_DIR}redis.pid ] || ${OPENSHIFT_RUNTIME_DIR}redis/bin/redis-server ${OPENSHIFT_RUNTIME_DIR}redis/bin/redis.conf
 
