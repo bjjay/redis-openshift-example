@@ -19,7 +19,7 @@ Create a Openshift application (using any application name you want)
 Add this upstream polyglot repository
 
     cd your_project
-    git remote add redis -m master git://github.com/razorinc/redis-openshift-example.git
+    git remote add redis -m master git://github.com/bjjay/redis-openshift-example.git
     git pull -s recursive -X theirs redis master
 
 Then push the repo upstream
