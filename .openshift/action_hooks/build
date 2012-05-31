@@ -6,7 +6,7 @@
 
 #!/bin/bash
 
-REDIS_VERSION=2.4.12
+REDIS_VERSION=2.4.14
 MAKE_IS_DONE="no"
 
 if [ ! -d ${OPENSHIFT_RUNTIME_DIR}/redis ]; then
